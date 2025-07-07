@@ -1,34 +1,130 @@
-<h1 align="center">Hi 👋, I'm Alejandro García Garay</h1>
-<h3 align="center">I am passionate about programming and I am always learning new things.</h3>
+<h1 align="center">👋 Alejandro García Garay</h1>
+<h3 align="center">💼 Senior Backend Engineer | Arquitecto de APIs | Experto en Bases de Datos</h3>
 
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=agarciagaray&label=Profile%20views&color=0e75b6&style=flat" alt="agarciagaray" /> </p>
-
-<p align="left"> <a href="https://twitter.com/agarciagaray" target="blank"><img src="https://img.shields.io/twitter/follow/agarciagaray?logo=twitter&style=for-the-badge" alt="agarciagaray" /></a> </p>
-
-- 🔭 I’m currently working on **several projects**
-
-- 🌱 I’m currently learning **Nestjs, Nextjs, GrahpQL**
-
-- 👨‍💻 All of my projects are available at [agarciagaray.com.co](agarciagaray.com.co)
-
-- 📝 I regularly write articles on [agarciagaray.com.co](agarciagaray.com.co)
-
-- 💬 Ask me about **react, nodejs, nestjs, mysql/mariadb**
-
-- 📫 How to reach me **contacto@agarciagaray.com.co**
-
-- 📄 Know about my experiences [agarciagaray.com.co](agarciagaray.com.co)
-
-
-## 🌐 Socials :
-<h3 align="left">Connect with me:</h3>
-<p align="left">
-<a href="https://twitter.com/agarciagaray" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="agarciagaray" height="30" width="40" /></a><br>
-<a href="https://linkedin.com/in/aagarciagaray" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="aagarciagaray" height="30" width="40" /></a><br>
-<a href="https://stackoverflow.com/users/191240" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" alt="191240" height="30" width="40" /></a><br>
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=agarciagaray&label=Profile%20views&color=0e75b6&style=flat" alt="agarciagaray" />
 </p>
 
-<h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://angular.io" target="_blank" rel="noreferrer"> <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="angular" width="40" height="40"/> </a> <a href="https://aws.amazon.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="40" height="40"/> </a> <a href="https://www.gnu.org/software/bash/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/gnu_bash/gnu_bash-icon.svg" alt="bash" width="40" height="40"/> </a> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a> <a href="https://cloud.google.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" alt="gcp" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://mariadb.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/mariadb/mariadb-icon.svg" alt="mariadb" width="40" height="40"/> </a> <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://nestjs.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nestjs/nestjs-plain.svg" alt="nestjs" width="40" height="40"/> </a> <a href="https://nextjs.org/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/nextjs-2.svg" alt="nextjs" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://nuxtjs.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/nuxtjs/nuxtjs-icon.svg" alt="nuxtjs" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://redux.js.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" alt="redux" width="40" height="40"/> </a> <a href="https://www.sqlite.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/sqlite/sqlite-icon.svg" alt="sqlite" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> </p>
+<!-- Language Tabs -->
+<p align="center">
+  <b>Select Language / Selecciona idioma:</b><br>
+  <a href="#english">🇬🇧 English</a> | <a href="#español">🇪🇸 Español</a>
+</p>
 
-<p><img align="center" src="https://github-readme-stats.vercel.app/api/top-langs?username=agarciagaray&show_icons=true&locale=en&layout=compact" alt="agarciagaray" /></p>
+---
+
+## 🇬🇧 English <a name="english"></a>
+
+### 🧠 About Me
+
+I'm a **Senior Backend Developer** with 20+ years of experience building performant, secure, and scalable systems for financial and enterprise applications.
+
+- 🧩 **API Architecture** (REST, GraphQL)  
+- 🧠 **Domain-driven backend** with Node.js/NestJS  
+- 🗃️ **Databases**: MySQL, MariaDB, PostgreSQL  
+- 🔐 **Security**: JWT, OAuth2, RBAC  
+- 🏗️ **Clean Architecture**, monolith/microservice systems  
+- ⚙️ CI/CD, Docker, GitHub Actions  
+
+---
+
+### 🔧 Tech Stack
+
+**Languages:** TypeScript, JavaScript, SQL, Python  
+**Frameworks:** NestJS, Express, FastAPI  
+**Databases:** MySQL, MariaDB, PostgreSQL, MongoDB, SQLite  
+**Tools:** Docker, Postman, Git, Prisma, Sequelize, TypeORM  
+
+---
+
+### 📂 Projects & Portfolio
+
+- 💼 [agarciagaray.com.co](https://agarciagaray.com.co) – Portfolio & blog  
+- 🔐 Advanced auth with JWT + Refresh Tokens  
+- 📊 ERP modules: credit, collections, reporting  
+- ⚙️ Database normalization & optimization  
+
+---
+
+### 💬 Ask Me About
+
+~~~
+✔️ Backend architecture  
+✔️ API security and token-based auth  
+✔️ Query optimization in MySQL/PostgreSQL  
+✔️ Modular and maintainable monolithic systems  
+✔️ Codebase refactoring and technical debt reduction  
+~~~
+
+
+---
+
+### 📫 Contact
+
+- Email: contacto@agarciagaray.com.co  
+- Web: [agarciagaray.com.co](https://agarciagaray.com.co)  
+- LinkedIn: [linkedin.com/in/aagarciagaray](https://linkedin.com/in/aagarciagaray)  
+- Twitter: [@agarciagaray](https://twitter.com/agarciagaray)  
+
+---
+
+## 🇪🇸 Español <a name="español"></a>
+
+### 🧠 Sobre mí
+
+Soy **Ingeniero Backend Senior** con más de 20 años de experiencia construyendo sistemas financieros y empresariales seguros, estables y escalables.
+
+- 🧩 **Arquitectura de APIs** (REST, GraphQL)  
+- 🧠 Backend orientado a dominio con Node.js/NestJS  
+- 🗃️ **Bases de datos:** MySQL, MariaDB, PostgreSQL  
+- 🔐 Seguridad: JWT, OAuth2, control de acceso  
+- 🏗️ Sistemas modulares, monolíticos o microservicios  
+- ⚙️ CI/CD, Docker, GitHub Actions  
+
+---
+
+### 🔧 Stack Tecnológico
+
+**Lenguajes:** TypeScript, JavaScript, SQL, Python  
+**Frameworks:** NestJS, Express, FastAPI  
+**Bases de datos:** MySQL, MariaDB, PostgreSQL, MongoDB, SQLite  
+**Herramientas:** Docker, Postman, Git, Prisma, Sequelize, TypeORM  
+
+---
+
+### 📂 Proyectos & Portafolio
+
+- 💼 [agarciagaray.com.co](https://agarciagaray.com.co) – Portafolio y blog técnico  
+- 🔐 Autenticación avanzada con JWT + Refresh Tokens  
+- 📊 Módulos ERP: crédito, cartera, informes  
+- ⚙️ Optimización de bases de datos relacionales  
+
+---
+
+### 💬 Pregúntame sobre
+
+~~~
+✔️ Arquitectura backend escalable  
+✔️ Seguridad con APIs y tokens  
+✔️ Optimización de consultas SQL  
+✔️ Refactorización de código heredado  
+✔️ Mejores prácticas con NestJS y bases de datos relacionales  
+~~~
+
+
+---
+
+### 📫 Contacto
+
+- Correo: contacto@agarciagaray.com.co  
+- Web: [agarciagaray.com.co](https://agarciagaray.com.co)  
+- LinkedIn: [linkedin.com/in/aagarciagaray](https://linkedin.com/in/aagarciagaray)  
+- Twitter: [@agarciagaray](https://twitter.com/agarciagaray)  
+
+---
+
+### 📊 GitHub Stats
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=agarciagaray&show_icons=true&locale=en&layout=compact" alt="agarciagaray" />
+</p>
