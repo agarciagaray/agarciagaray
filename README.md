@@ -125,6 +125,9 @@ Soy **Ingeniero Backend Senior** con más de 20 años de experiencia construyend
 
 ### 📊 GitHub Stats
 
-<p align="center">
+<div style="display: flex; justify-content: space-between; align-items: center;">
   <img src="https://github-readme-stats.vercel.app/api/top-langs?username=agarciagaray&show_icons=true&locale=en&layout=compact" alt="agarciagaray" />
-</p>
+  <a href="https://stardev.io/developers/agarciagaray">
+    <img src="https://stardev.io/developers/agarciagaray/badge/languages/locality.svg" alt="Check out agarciagaray's profile on stardev.io" />
+  </a>
+</div>
