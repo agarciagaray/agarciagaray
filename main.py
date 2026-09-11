@@ -70,7 +70,8 @@ def main(page: ft.Page):
                 with SessionLocal() as s: cfg = s.get(AppConfig, 1)
                 state["key"] = derive_key(password.value, base64.b64decode(cfg.salt_b64))
                 app_view()
-            except Exception: toast("Contraseña incorrecta o configuración inválida", True)
+            except Exception as exc:
+                toast(f"No se pudo desbloquear la bóveda: {exc}", True)
         page.clean(); page.add(ft.Container(expand=True, alignment=ft.Alignment(0, 0), content=ft.Column([
             ft.Icon(ft.Icons.SHIELD_ROUNDED, size=64, color=ft.Colors.INDIGO_300), ft.Text(APP_NAME, size=34, weight=ft.FontWeight.BOLD),
             ft.Text("Acceso protegido", color=ft.Colors.GREY_400), password, ft.FilledButton("Desbloquear", icon=ft.Icons.LOCK_OPEN, on_click=login, width=320),
@@ -153,7 +154,13 @@ def main(page: ft.Page):
                 except Exception: toast("Contraseña incorrecta", True)
             dialog("Autenticación requerida", ft.Column([ft.Text("Por seguridad, confirma tu contraseña para revelar secretos."),password]), [ft.TextButton("Cancelar",on_click=lambda e:setattr(page.dialog,"open",False)),ft.FilledButton("Revelar",on_click=ok)])
 
+        logo_picker = None
+
         async def pick_logo(_):
+            nonlocal logo_picker
+            if logo_picker is None:
+                logo_picker = ft.FilePicker()
+                page.services.register_service(logo_picker)
             selected = await logo_picker.pick_files(file_type=ft.FilePickerFileType.CUSTOM, allowed_extensions=["png", "jpg", "jpeg"])
             if not selected: return
             src = Path(selected[0].path)
@@ -163,11 +170,6 @@ def main(page: ft.Page):
             dest.write_bytes(src.read_bytes())
             logo_text.current.value = str(dest)
             page.update()
-
-        logo_picker = ft.FilePicker()
-        # FilePicker es un Service en Flet 0.86.x; no debe agregarse al overlay
-        # porque el renderer intentaría pintarlo como un control visual.
-        page.services.register_service(logo_picker)
 
         def new_bank(_):
             state["selected"] = None
@@ -181,4 +183,5 @@ def main(page: ft.Page):
     setup()
 
 if __name__ == "__main__":
-    ft.app(target=main)
+    # El nombre técnico ASCII evita que el servidor web genere rutas Unicode.
+    ft.run(main, name="boveda-bancaria")
