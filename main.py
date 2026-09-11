@@ -153,9 +153,10 @@ def main(page: ft.Page):
                 except Exception: toast("Contraseña incorrecta", True)
             dialog("Autenticación requerida", ft.Column([ft.Text("Por seguridad, confirma tu contraseña para revelar secretos."),password]), [ft.TextButton("Cancelar",on_click=lambda e:setattr(page.dialog,"open",False)),ft.FilledButton("Revelar",on_click=ok)])
 
-        def pick_logo(e):
-            if not e.files: return
-            src = Path(e.files[0].path)
+        async def pick_logo(_):
+            selected = await logo_picker.pick_files(file_type=ft.FilePickerFileType.CUSTOM, allowed_extensions=["png", "jpg", "jpeg"])
+            if not selected: return
+            src = Path(selected[0].path)
             if src.suffix.lower() not in {".png", ".jpg", ".jpeg"}:
                 toast("El logo debe ser PNG o JPG", True); return
             dest = ASSET_DIR / f"bank_{state.get('selected') or 'new'}{src.suffix.lower()}"
@@ -163,7 +164,7 @@ def main(page: ft.Page):
             logo_text.current.value = str(dest)
             page.update()
 
-        logo_picker = ft.FilePicker(on_result=pick_logo)
+        logo_picker = ft.FilePicker()
         page.overlay.append(logo_picker)
 
         def new_bank(_):
@@ -172,7 +173,7 @@ def main(page: ft.Page):
             virtual.current.value = False; cards.current.controls.clear(); logo_text.current.value = "Sin imagen"; page.update()
 
         def toggle_theme(_): page.theme_mode=ft.ThemeMode.LIGHT if page.theme_mode==ft.ThemeMode.DARK else ft.ThemeMode.DARK; page.update()
-        fields=ft.Column([ft.Text("Datos principales",size=20,weight=ft.FontWeight.BOLD),ft.Row([ft.TextField(ref=name,label="Nombre del banco",expand=1),ft.TextField(ref=owner,label="Dueño de la cuenta",expand=1)]),ft.Row([ft.TextField(ref=branch,label="Sucursal",expand=1),ft.Switch(ref=virtual,label="Cuenta virtual")]),ft.Row([ft.Text(ref=logo_text,value="Sin imagen",color=ft.Colors.GREY_500,expand=1),ft.OutlinedButton("Subir logo PNG/JPG",icon=ft.Icons.IMAGE,on_click=lambda e: logo_picker.pick_files(allowed_extensions=["png","jpg","jpeg"]))]),ft.Divider(),ft.Text("Cuenta",size=20,weight=ft.FontWeight.BOLD),ft.Row([ft.TextField(ref=account_no,label="Número de cuenta",password=True,can_reveal_password=True,expand=1),ft.TextField(ref=breb,label="Llave Bre-B",password=True,can_reveal_password=True,expand=1)]),ft.Row([ft.TextField(ref=phone,label="Clave telefónica",password=True,can_reveal_password=True,expand=1),ft.TextField(ref=pin,label="Clave de retiros / acceso",password=True,can_reveal_password=True,expand=1)]),ft.Divider(),ft.Row([ft.Text("Tarjetas",size=20,weight=ft.FontWeight.BOLD),ft.OutlinedButton("Agregar tarjeta",icon=ft.Icons.ADD,on_click=lambda e:add_card_row())]),ft.DataTable(columns=[ft.DataColumn(ft.Text("Tipo")),ft.DataColumn(ft.Text("Número")),ft.DataColumn(ft.Text("Vencimiento")),ft.DataColumn(ft.Text("CVC / CCV"))],rows=cards),ft.Row([ft.FilledButton("Guardar cambios",icon=ft.Icons.SAVE,on_click=save),ft.OutlinedButton("Revelar secretos",icon=ft.Icons.VISIBILITY,on_click=reveal)])],scroll=ft.ScrollMode.AUTO,expand=True)
+        fields=ft.Column([ft.Text("Datos principales",size=20,weight=ft.FontWeight.BOLD),ft.Row([ft.TextField(ref=name,label="Nombre del banco",expand=1),ft.TextField(ref=owner,label="Dueño de la cuenta",expand=1)]),ft.Row([ft.TextField(ref=branch,label="Sucursal",expand=1),ft.Switch(ref=virtual,label="Cuenta virtual")]),ft.Row([ft.Text(ref=logo_text,value="Sin imagen",color=ft.Colors.GREY_500,expand=1),ft.OutlinedButton("Subir logo PNG/JPG",icon=ft.Icons.IMAGE,on_click=pick_logo)]),ft.Divider(),ft.Text("Cuenta",size=20,weight=ft.FontWeight.BOLD),ft.Row([ft.TextField(ref=account_no,label="Número de cuenta",password=True,can_reveal_password=True,expand=1),ft.TextField(ref=breb,label="Llave Bre-B",password=True,can_reveal_password=True,expand=1)]),ft.Row([ft.TextField(ref=phone,label="Clave telefónica",password=True,can_reveal_password=True,expand=1),ft.TextField(ref=pin,label="Clave de retiros / acceso",password=True,can_reveal_password=True,expand=1)]),ft.Divider(),ft.Row([ft.Text("Tarjetas",size=20,weight=ft.FontWeight.BOLD),ft.OutlinedButton("Agregar tarjeta",icon=ft.Icons.ADD,on_click=lambda e:add_card_row())]),ft.DataTable(columns=[ft.DataColumn(ft.Text("Tipo")),ft.DataColumn(ft.Text("Número")),ft.DataColumn(ft.Text("Vencimiento")),ft.DataColumn(ft.Text("CVC / CCV"))],rows=cards),ft.Row([ft.FilledButton("Guardar cambios",icon=ft.Icons.SAVE,on_click=save),ft.OutlinedButton("Revelar secretos",icon=ft.Icons.VISIBILITY,on_click=reveal)])],scroll=ft.ScrollMode.AUTO,expand=True)
         page.clean(); page.add(ft.Row([ft.Container(width=290,padding=24,bgcolor=ft.Colors.with_opacity(.06,ft.Colors.INDIGO_200),content=ft.Column([ft.Row([ft.Icon(ft.Icons.SHIELD),ft.Text(APP_NAME,size=20,weight=ft.FontWeight.BOLD)]),ft.Row([ft.Text("Bancos",size=18,weight=ft.FontWeight.BOLD),ft.IconButton(ft.Icons.ADD,on_click=new_bank)]),ft.Column(ref=banks_list),ft.Container(expand=True),ft.TextButton("Cambiar tema",icon=ft.Icons.DARK_MODE,on_click=toggle_theme),ft.TextButton("Bloquear sesión",icon=ft.Icons.LOCK,on_click=lambda e:login_view())])),ft.Container(expand=True,padding=32,content=fields)])); refresh()
 
     setup()
