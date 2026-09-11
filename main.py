@@ -81,7 +81,7 @@ def main(page: ft.Page):
         selected = ft.Ref[ft.Dropdown](); name = ft.Ref[ft.TextField](); owner = ft.Ref[ft.TextField](); branch = ft.Ref[ft.TextField](); virtual = ft.Ref[ft.Switch]()
         account_no = ft.Ref[ft.TextField](); breb = ft.Ref[ft.TextField](); phone = ft.Ref[ft.TextField](); pin = ft.Ref[ft.TextField]()
         card_type = ft.Ref[ft.Dropdown](); card_no = ft.Ref[ft.TextField](); expiry = ft.Ref[ft.TextField](); cvc = ft.Ref[ft.TextField](); variable = ft.Ref[ft.Checkbox](); variable_hint = ft.Ref[ft.TextField]()
-        cards = ft.Ref[ft.Column](); logo_text = ft.Ref[ft.Text](); banks_list = ft.Ref[ft.Column]()
+        card_rows = []; cards_table = ft.Ref[ft.DataTable](); logo_text = ft.Ref[ft.Text](); banks_list = ft.Ref[ft.Column]()
         state["selected"] = None; state["new_cards"] = []
 
         def refresh():
@@ -95,7 +95,7 @@ def main(page: ft.Page):
         def load_bank(bid):
             with SessionLocal() as s: b = s.get(Bank, bid)
             state["selected"] = bid; state["new_cards"].clear(); name.current.value=b.name; owner.current.value=b.owner_name; branch.current.value=b.branch; virtual.current.value=b.is_virtual
-            account_no.current.value=breb.current.value=phone.current.value=pin.current.value=""; cards.current.controls.clear(); logo_text.current.value=b.logo_path or "Sin imagen"
+            account_no.current.value=breb.current.value=phone.current.value=pin.current.value=""; card_rows.clear(); logo_text.current.value=b.logo_path or "Sin imagen"
             if b.accounts:
                 a=b.accounts[0]
                 account_no.current.value=mask(decrypt(a.account_number_enc,state["key"]))
@@ -125,7 +125,9 @@ def main(page: ft.Page):
                 vals = [c["type"], mask(c["number"]), mask(c["expiry"]), "Variable" if c["variable"] else mask(c["cvc"])]
             else:
                 vals = [c.card_type, mask(decrypt(c.number_enc,state["key"])), mask(decrypt(c.expiry_enc,state["key"])), "Variable" if c.cvc_variable else mask(decrypt(c.cvc_enc,state["key"]))]
-            cards.current.controls.append(ft.DataRow(cells=[ft.DataCell(ft.Text(x)) for x in vals])); page.update()
+            card_rows.append(ft.DataRow(cells=[ft.DataCell(ft.Text(x)) for x in vals]))
+            if cards_table.current: cards_table.current.rows = card_rows
+            page.update()
 
         def save(_):
             if not name.current.value or not owner.current.value or not account_no.current.value: toast("Banco, dueño y número de cuenta son obligatorios", True); return
@@ -174,10 +176,10 @@ def main(page: ft.Page):
         def new_bank(_):
             state["selected"] = None
             for ref in (name, owner, branch, account_no, breb, phone, pin): ref.current.value = ""
-            virtual.current.value = False; cards.current.controls.clear(); logo_text.current.value = "Sin imagen"; page.update()
+            virtual.current.value = False; card_rows.clear(); logo_text.current.value = "Sin imagen"; page.update()
 
         def toggle_theme(_): page.theme_mode=ft.ThemeMode.LIGHT if page.theme_mode==ft.ThemeMode.DARK else ft.ThemeMode.DARK; page.update()
-        fields=ft.Column([ft.Text("Datos principales",size=20,weight=ft.FontWeight.BOLD),ft.Row([ft.TextField(ref=name,label="Nombre del banco",expand=1),ft.TextField(ref=owner,label="Dueño de la cuenta",expand=1)]),ft.Row([ft.TextField(ref=branch,label="Sucursal",expand=1),ft.Switch(ref=virtual,label="Cuenta virtual")]),ft.Row([ft.Text(ref=logo_text,value="Sin imagen",color=ft.Colors.GREY_500,expand=1),ft.OutlinedButton("Subir logo PNG/JPG",icon=ft.Icons.IMAGE,on_click=pick_logo)]),ft.Divider(),ft.Text("Cuenta",size=20,weight=ft.FontWeight.BOLD),ft.Row([ft.TextField(ref=account_no,label="Número de cuenta",password=True,can_reveal_password=True,expand=1),ft.TextField(ref=breb,label="Llave Bre-B",password=True,can_reveal_password=True,expand=1)]),ft.Row([ft.TextField(ref=phone,label="Clave telefónica",password=True,can_reveal_password=True,expand=1),ft.TextField(ref=pin,label="Clave de retiros / acceso",password=True,can_reveal_password=True,expand=1)]),ft.Divider(),ft.Row([ft.Text("Tarjetas",size=20,weight=ft.FontWeight.BOLD),ft.OutlinedButton("Agregar tarjeta",icon=ft.Icons.ADD,on_click=lambda e:add_card_row())]),ft.DataTable(columns=[ft.DataColumn(ft.Text("Tipo")),ft.DataColumn(ft.Text("Número")),ft.DataColumn(ft.Text("Vencimiento")),ft.DataColumn(ft.Text("CVC / CCV"))],rows=cards),ft.Row([ft.FilledButton("Guardar cambios",icon=ft.Icons.SAVE,on_click=save),ft.OutlinedButton("Revelar secretos",icon=ft.Icons.VISIBILITY,on_click=reveal)])],scroll=ft.ScrollMode.AUTO,expand=True)
+        fields=ft.Column([ft.Text("Datos principales",size=20,weight=ft.FontWeight.BOLD),ft.Row([ft.TextField(ref=name,label="Nombre del banco",expand=1),ft.TextField(ref=owner,label="Dueño de la cuenta",expand=1)]),ft.Row([ft.TextField(ref=branch,label="Sucursal",expand=1),ft.Switch(ref=virtual,label="Cuenta virtual")]),ft.Row([ft.Text(ref=logo_text,value="Sin imagen",color=ft.Colors.GREY_500,expand=1),ft.OutlinedButton("Subir logo PNG/JPG",icon=ft.Icons.IMAGE,on_click=pick_logo)]),ft.Divider(),ft.Text("Cuenta",size=20,weight=ft.FontWeight.BOLD),ft.Row([ft.TextField(ref=account_no,label="Número de cuenta",password=True,can_reveal_password=True,expand=1),ft.TextField(ref=breb,label="Llave Bre-B",password=True,can_reveal_password=True,expand=1)]),ft.Row([ft.TextField(ref=phone,label="Clave telefónica",password=True,can_reveal_password=True,expand=1),ft.TextField(ref=pin,label="Clave de retiros / acceso",password=True,can_reveal_password=True,expand=1)]),ft.Divider(),ft.Row([ft.Text("Tarjetas",size=20,weight=ft.FontWeight.BOLD),ft.OutlinedButton("Agregar tarjeta",icon=ft.Icons.ADD,on_click=lambda e:add_card_row())]),ft.DataTable(ref=cards_table,columns=[ft.DataColumn(ft.Text("Tipo")),ft.DataColumn(ft.Text("Número")),ft.DataColumn(ft.Text("Vencimiento")),ft.DataColumn(ft.Text("CVC / CCV"))],rows=card_rows),ft.Row([ft.FilledButton("Guardar cambios",icon=ft.Icons.SAVE,on_click=save),ft.OutlinedButton("Revelar secretos",icon=ft.Icons.VISIBILITY,on_click=reveal)])],scroll=ft.ScrollMode.AUTO,expand=True)
         page.clean(); page.add(ft.Row([ft.Container(width=290,padding=24,bgcolor=ft.Colors.with_opacity(.06,ft.Colors.INDIGO_200),content=ft.Column([ft.Row([ft.Icon(ft.Icons.SHIELD),ft.Text(APP_NAME,size=20,weight=ft.FontWeight.BOLD)]),ft.Row([ft.Text("Bancos",size=18,weight=ft.FontWeight.BOLD),ft.IconButton(ft.Icons.ADD,on_click=new_bank)]),ft.Column(ref=banks_list),ft.Container(expand=True),ft.TextButton("Cambiar tema",icon=ft.Icons.DARK_MODE,on_click=toggle_theme),ft.TextButton("Bloquear sesión",icon=ft.Icons.LOCK,on_click=lambda e:login_view())])),ft.Container(expand=True,padding=32,content=fields)])); refresh()
 
     setup()
