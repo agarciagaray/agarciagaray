@@ -15,3 +15,11 @@ def test_file_picker_is_a_service_and_registry_supports_registration():
     assert "Service" in {base.__name__ for base in ft.FilePicker.__mro__}
     from flet.controls.page import ServiceRegistry
     assert hasattr(ServiceRegistry, "register_service")
+
+
+def test_dashboard_card_table_uses_data_rows():
+    table = ft.DataTable(
+        columns=[ft.DataColumn(ft.Text("Tipo"))],
+        rows=[ft.DataRow(cells=[ft.DataCell(ft.Text("Débito"))])],
+    )
+    assert len(table.rows) == 1
