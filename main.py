@@ -56,7 +56,7 @@ def main(page: ft.Page):
                 state["key"] = km.key
                 app_view(); toast("Bóveda creada. La contraseña no se puede recuperar.")
             except ValueError as e: toast(str(e), True)
-        page.clean(); page.add(ft.Container(expand=True, alignment=ft.alignment.center, content=ft.Column([
+        page.clean(); page.add(ft.Container(expand=True, alignment=ft.Alignment(0, 0), content=ft.Column([
             ft.Icon(ft.Icons.LOCK_ROUNDED, size=64, color=ft.Colors.INDIGO_300), ft.Text(APP_NAME, size=34, weight=ft.FontWeight.BOLD),
             ft.Text("Crea la contraseña maestra que protegerá todos tus datos.", color=ft.Colors.GREY_400), password, confirm,
             ft.FilledButton("Crear bóveda", icon=ft.Icons.SECURITY, on_click=create, width=320),
@@ -71,7 +71,7 @@ def main(page: ft.Page):
                 state["key"] = derive_key(password.value, base64.b64decode(cfg.salt_b64))
                 app_view()
             except Exception: toast("Contraseña incorrecta o configuración inválida", True)
-        page.clean(); page.add(ft.Container(expand=True, alignment=ft.alignment.center, content=ft.Column([
+        page.clean(); page.add(ft.Container(expand=True, alignment=ft.Alignment(0, 0), content=ft.Column([
             ft.Icon(ft.Icons.SHIELD_ROUNDED, size=64, color=ft.Colors.INDIGO_300), ft.Text(APP_NAME, size=34, weight=ft.FontWeight.BOLD),
             ft.Text("Acceso protegido", color=ft.Colors.GREY_400), password, ft.FilledButton("Desbloquear", icon=ft.Icons.LOCK_OPEN, on_click=login, width=320),
         ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=18))); page.update()
