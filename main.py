@@ -81,7 +81,7 @@ def main(page: ft.Page):
         account_no = ft.Ref[ft.TextField](); breb = ft.Ref[ft.TextField](); phone = ft.Ref[ft.TextField](); pin = ft.Ref[ft.TextField]()
         card_type = ft.Ref[ft.Dropdown](); card_no = ft.Ref[ft.TextField](); expiry = ft.Ref[ft.TextField](); cvc = ft.Ref[ft.TextField](); variable = ft.Ref[ft.Checkbox](); variable_hint = ft.Ref[ft.TextField]()
         cards = ft.Ref[ft.Column](); logo_text = ft.Ref[ft.Text](); banks_list = ft.Ref[ft.Column]()
-        state["selected"] = None
+        state["selected"] = None; state["new_cards"] = []
 
         def refresh():
             banks_list.current.controls.clear()
@@ -93,7 +93,7 @@ def main(page: ft.Page):
 
         def load_bank(bid):
             with SessionLocal() as s: b = s.get(Bank, bid)
-            state["selected"] = bid; name.current.value=b.name; owner.current.value=b.owner_name; branch.current.value=b.branch; virtual.current.value=b.is_virtual
+            state["selected"] = bid; state["new_cards"].clear(); name.current.value=b.name; owner.current.value=b.owner_name; branch.current.value=b.branch; virtual.current.value=b.is_virtual
             account_no.current.value=breb.current.value=phone.current.value=pin.current.value=""; cards.current.controls.clear(); logo_text.current.value=b.logo_path or "Sin imagen"
             if b.accounts:
                 a=b.accounts[0]
@@ -105,7 +105,25 @@ def main(page: ft.Page):
             page.update()
 
         def add_card_row(c=None):
-            vals = [c.card_type if c else "Débito", mask(decrypt(c.number_enc,state["key"])) if c else "", mask(decrypt(c.expiry_enc,state["key"])) if c else "", "Variable" if c and c.cvc_variable else mask(decrypt(c.cvc_enc,state["key"])) if c else ""]
+            if c is None:
+                typ=ft.Dropdown(label="Tipo", options=[ft.dropdown.Option("Débito"),ft.dropdown.Option("Crédito"),ft.dropdown.Option("Prepago")], value="Débito")
+                num=ft.TextField(label="Número de tarjeta")
+                exp=ft.TextField(label="Vencimiento (MM/AA)")
+                cv=ft.TextField(label="CVC / CCV", keyboard_type=ft.KeyboardType.NUMBER)
+                var=ft.Checkbox(label="CVC variable", value=False)
+                hint=ft.TextField(label="Pista para localizar el CVC", visible=False)
+                def change(_): hint.visible=bool(var.value); cv.visible=not var.value; page.update()
+                var.on_change=change
+                def add(_):
+                    if not num.value or not exp.value or (not var.value and not cv.value): toast("Completa número, vencimiento y CVC o marca variable", True); return
+                    state["new_cards"].append({"type":typ.value,"number":num.value,"expiry":exp.value,"cvc":cv.value,"variable":var.value,"hint":hint.value})
+                    add_card_row(state["new_cards"][-1]); page.dialog.open=False; page.update()
+                dialog("Nueva tarjeta", ft.Column([typ,num,exp,cv,var,hint],tight=True), [ft.TextButton("Cancelar",on_click=lambda e:setattr(page.dialog,"open",False)),ft.FilledButton("Agregar",on_click=add)])
+                return
+            if isinstance(c, dict):
+                vals = [c["type"], mask(c["number"]), mask(c["expiry"]), "Variable" if c["variable"] else mask(c["cvc"])]
+            else:
+                vals = [c.card_type, mask(decrypt(c.number_enc,state["key"])), mask(decrypt(c.expiry_enc,state["key"])), "Variable" if c.cvc_variable else mask(decrypt(c.cvc_enc,state["key"]))]
             cards.current.controls.append(ft.DataRow(cells=[ft.DataCell(ft.Text(x)) for x in vals])); page.update()
 
         def save(_):
@@ -119,6 +137,9 @@ def main(page: ft.Page):
                     a=b.accounts[0] if b.accounts else Account(bank_id=b.id,account_number_enc="")
                     a.account_number_enc=encrypt(account_no.current.value,state["key"]); a.breb_key_enc=encrypt(breb.current.value,state["key"]); a.phone_key_enc=encrypt(phone.current.value,state["key"]); a.withdrawal_pin_enc=encrypt(pin.current.value,state["key"])
                     if not b.accounts: s.add(a)
+                    for item in state["new_cards"]:
+                        s.add(Card(account=a, card_type=item["type"], number_enc=encrypt(item["number"],state["key"]), expiry_enc=encrypt(item["expiry"],state["key"]), cvc_enc=None if item["variable"] else encrypt(item["cvc"],state["key"]), cvc_variable=item["variable"], variable_hint_enc=encrypt(item["hint"],state["key"])))
+                    state["new_cards"].clear()
                 state["selected"]=b.id; refresh(); toast("Datos guardados de forma cifrada")
             except Exception as e: toast(f"No fue posible guardar: {e}", True)
 
