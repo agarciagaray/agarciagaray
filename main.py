@@ -165,7 +165,9 @@ def main(page: ft.Page):
             page.update()
 
         logo_picker = ft.FilePicker()
-        page.overlay.append(logo_picker)
+        # FilePicker es un Service en Flet 0.86.x; no debe agregarse al overlay
+        # porque el renderer intentaría pintarlo como un control visual.
+        page.services.append(logo_picker)
 
         def new_bank(_):
             state["selected"] = None
