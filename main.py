@@ -14,6 +14,14 @@ APP_NAME = "Bóveda Bancaria"
 ASSET_DIR = Path(os.getenv("DATA_DIR", "data")) / "logos"
 ASSET_DIR.mkdir(parents=True, exist_ok=True)
 
+def register_page_service(page, service) -> None:
+    """Registra un servicio en las variantes de runtime de Flet soportadas."""
+    services = page.services
+    if hasattr(services, "register_service"):
+        services.register_service(service)
+    else:
+        services.append(service)
+
 
 def main(page: ft.Page):
     page.title = APP_NAME
@@ -162,7 +170,7 @@ def main(page: ft.Page):
             nonlocal logo_picker
             if logo_picker is None:
                 logo_picker = ft.FilePicker()
-                page.services.register_service(logo_picker)
+                register_page_service(page, logo_picker)
             selected = await logo_picker.pick_files(file_type=ft.FilePickerFileType.CUSTOM, allowed_extensions=["png", "jpg", "jpeg"])
             if not selected: return
             src = Path(selected[0].path)
